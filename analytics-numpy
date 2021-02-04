@@ -1,0 +1,25 @@
+def parse_header(head):
+    return head.strip().split(',')
+
+def parseval(dataline):
+    values = []
+    for i in dataline.strip().split(','):
+        values.append(float(i))
+    return values
+    
+def create_dict(value,headers):
+    result = {}
+    for value,headers in zip(value,headers):
+        result[headers]=value
+    return result
+    
+def read_csv(path):
+    results=[]
+    with open(path,'r') as f:
+        lines = f.readlines()
+        header = parse_header(lines[0])
+        for i in lines[1:]:
+            values = parseval(i)
+            dict = create_dict(values,header)
+            results.append(dict)
+    return results
